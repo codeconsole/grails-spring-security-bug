@@ -53,6 +53,7 @@
     <section class="row colset-2-its">
         <h1>Welcome to Grails</h1>
 
+        <h1><a href="#" id="BUG_LINK">Click here</a> to see the Bug</h1>
         <p>
             Congratulations, you have successfully started your first Grails application! At the moment
             this is the default page, feel free to modify it to either redirect to a controller or display
@@ -72,6 +73,21 @@
         </div>
     </section>
 </div>
-
+<script
+src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#BUG_LINK').click(function() {
+            $.ajax({method:'POST', url: '/car/save.json'}).done(function(data) {
+                $.ajax({method:'PUT', url: '/car/update/'+data.id+'.json', data:{fake:true}}).catch(function(resp) {
+                    alert('An error as occurred. Please review the exception in the logs.')
+                })
+            })
+            return false
+        })
+    })
+</script>
 </body>
 </html>
